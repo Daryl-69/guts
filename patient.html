@@ -1282,12 +1282,22 @@
             let isVideoMuted = false;
             let currentAppointmentId = null;
              let iceCandidateQueue = []; // <-- ADD THIS LINE
-            const configuration = {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' }
-                ]
-            };
-
+       const configuration = {
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' }, // Your existing STUN server
+        // Add the free TURN server credentials from Open Relay
+        {
+            urls: 'turn:openrelay.metered.ca:80',
+            username: 'openrelayproject',
+            credential: 'openrelayproject'
+        },
+        {
+            urls: 'turn:openrelay.metered.ca:443',
+            username: 'openrelayproject',
+            credential: 'openrelayproject'
+        }
+    ]
+};
             function showCallScreen(doctorName, appointmentId) {
                 currentAppointmentId = appointmentId;
                 document.getElementById('callWithDoctor').textContent = `Consultation with ${doctorName}`;
@@ -1538,4 +1548,5 @@
         });
     </script>
 </body>
+
 </html>
