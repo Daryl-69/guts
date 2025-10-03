@@ -413,11 +413,22 @@
             let currentAppointmentId = null; // To track the active call
             let iceCandidateQueue = []; // <-- ADD THIS LINE
 
-            const configuration = {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' } // Google's public STUN server
-                ]
-            };
+        const configuration = {
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' }, // Your existing STUN server
+        // Add the free TURN server credentials from Open Relay
+        {
+            urls: 'turn:openrelay.metered.ca:80',
+            username: 'openrelayproject',
+            credential: 'openrelayproject'
+        },
+        {
+            urls: 'turn:openrelay.metered.ca:443',
+            username: 'openrelayproject',
+            credential: 'openrelayproject'
+        }
+    ]
+};
 
             function showCallScreen(patientName, appointmentId) {
                 currentAppointmentId = appointmentId;
@@ -919,3 +930,4 @@ async function generateAppointments() {
     </script>
 </body>
 </html>
+
